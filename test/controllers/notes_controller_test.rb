@@ -1,14 +1,17 @@
 require 'test_helper'
 
 class NotesControllerTest < ActionController::TestCase
-  test "should get user" do
-    get :user
-    assert_response :success
+  def invalid_answer_data
+    { text: "" }
+  end
+  def valid_answer_data
+    { text: Faker::Hacker.say_something_smart }
   end
 
-  test "should get body" do
-    get :body
-    assert_response :success
-  end
+	# should "redirect to login when invalid user" do
+  #   @current_user = nil
+  #   get :new
+  #   assert_redirected_to new_login_path
+  # end
 
 end

@@ -15,7 +15,4 @@ class LoginsControllerTest < ActionController::TestCase
       post :new, session: { email: @user.email, password: '' }
       assert_template :new
   end
-
-  
-
 end
