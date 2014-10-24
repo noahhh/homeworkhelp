@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   get 'users/password_confirmation'
 
-  resources :logins
+  resource :login, only: [:new, :create, :destroy]
   resources :users
   resources :notes
   resources :problems
