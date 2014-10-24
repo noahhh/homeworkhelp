@@ -8,7 +8,26 @@
 </head>
 <body>
 
-<%= yield %>
+  <%= link_to 'Home', root_path %> |
+  <%= link_to 'Your Problems' %> |
+  <%= link_to 'Users' %>
+
+  <div class="user_nav">
+    <% if current_user %>
+    Logged in as <%= current_user.email %> |
+    <%= link_to "Logout", session_path, :method => :delete %>
+    <% else %>
+    <%= link_to "Sign Up" %> or
+    <%= link_to "Log In" %>
+    <% end %>
+  </div>
+
+  <% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  <% end %>
+
+
+  <%= yield %>
 
 </body>
 </html>
