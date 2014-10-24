@@ -1,5 +1,8 @@
 class LoginsController < ApplicationController
 
+	def new
+	end
+
 	def create
 		@login = Login.new(login_params)
 
