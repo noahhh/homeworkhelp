@@ -1,7 +1,22 @@
 class NotesController < ApplicationController
-  def user
+
+  def index
+    @notes = Note.all
   end
 
-  def body
+  def new
+    @note = Note.new
+  end
+
+  def create
+    @note = Note.new(note_params)
+  end
+
+  def destroy
+    @note.destroy
+  end
+
+  def note_params
+    params.require(:note).permit(:user, :body)
   end
 end
