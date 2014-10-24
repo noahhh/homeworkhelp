@@ -18,6 +18,14 @@ Rails.application.routes.draw do
   get 'users/password_confirmation'
 
   resources :logins
+  resources :users
+  resources :notes
+  resources :problems
+
+
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

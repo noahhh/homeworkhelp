@@ -1,24 +1,17 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-  test "should get name" do
-    get :name
-    assert_response :success
+
+  test "should get new" do
+    get :new
+    assert_response :ok
   end
 
-  test "should get email" do
-    get :email
-    assert_response :success
-  end
-
-  test "should get password" do
-    get :password
-    assert_response :success
-  end
-
-  test "should get password_confirmation" do
-    get :password_confirmation
-    assert_response :success
-  end
-
+  # test "should render new with invalid information" do
+  #     setup { post :create, { name: "",
+  #     email: "",
+  #     password: "",
+  #     password_confirmation: ""  }
+  #     assert_template :new
+  # end
 end
