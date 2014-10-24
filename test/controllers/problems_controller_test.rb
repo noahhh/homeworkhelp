@@ -4,18 +4,31 @@ class ProblemsControllerTest < ActionController::TestCase
 
   test "should get new" do
     get :new
-    assert_response :ok
+    assert_response :found
   end
 
-  test "should submit question with valid data" do
+  test "should submit problem with valid data" do
     get :new
     post :new, { title: 'Wassup', body: 'nothing', user:{user: :one} }
     assert_not_nil Problem.all
   end
 
-  # test "should not submit question with invalid data" do
-  #   get :new
-  #   post :new, {title: '', body: '', user: ""}
-  #   assert_nil Problem.count
-  # end
+  test "should reject problem with invalid data" do
+    assert_difference('Problem.count', 0) do
+    get :new
+    post :new, {title: ""}
+    end
+  end
+
+  test "should redirect after create" do
+    get :new
+    post :new, { title: 'Wassup', body: 'nothing', user:{user: :one} }
+    assert_response :found
+  end
+
+  test "should redirect if not logged in" do
+    @user = nil
+    get :new
+    assert_redirected_to root_path
+  end
 end
