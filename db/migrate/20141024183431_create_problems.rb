@@ -4,6 +4,7 @@ class CreateProblems < ActiveRecord::Migration
       t.references :user, index: true
       t.string :title
       t.string :body
+      t.datetime :published_date
 
       t.timestamps
     end

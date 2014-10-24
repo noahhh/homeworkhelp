@@ -9,7 +9,8 @@ class LoginsController < ApplicationController
 			session[:current_user_id] = @user.id
 			redirect_to root_path, success: "You are successfully logged in."
 		else
-			render :show
+			flash.now[:error] = 'Invalid email/password combination'
+			render 'new'
 		end
 	end
 

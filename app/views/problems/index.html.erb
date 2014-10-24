@@ -1,2 +1,13 @@
-<h1>Problems#index</h1>
-<p>Find me in app/views/problems/body.html.erb</p>
+<h1>Your Problems</h1>
+<p></p>
+<% @problems1.order(published_date: :desc).each do |problem| %>
+<div class="mytitle">Title: <%= link_to problem.title, problem %></div>
+<div class="mydate">Date: <%= problem.published_date %></div>
+<div class="mycontent"><%= truncate(problem.body, length: 400) %></div>
+<div class="myproblemlinks"><%= link_to 'Show', problem %> |
+  <%= link_to 'Edit', edit_problem_path(problem) %> |
+  <%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
+<% end %>
+
+<br>

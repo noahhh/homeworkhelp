@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20141024183546) do
     t.integer  "user_id"
     t.string   "title"
     t.string   "body"
+    t.datetime "published_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
