@@ -10,15 +10,15 @@
 
   <%= link_to 'Home', root_path %> |
   <%= link_to 'Your Problems' %> |
-  <%= link_to 'Users' %>
+  <%= link_to 'Users', users_path %>
 
   <div class="user_nav">
     <% if current_user %>
     Logged in as <%= current_user.email %> |
-    <%= link_to "Logout", session_path, :method => :delete %>
+    <%= link_to "Logout", login_path, :method => :delete %>
     <% else %>
-    <%= link_to "Sign Up" %> or
-    <%= link_to "Log In" %>
+    <%= link_to "Sign Up", new_user_path %> or
+    <%= link_to "Log In", new_login_path %>
     <% end %>
   </div>
 
