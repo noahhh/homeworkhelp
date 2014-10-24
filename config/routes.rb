@@ -1,4 +1,23 @@
 Rails.application.routes.draw do
+  get 'notes/user'
+
+  get 'notes/body'
+
+  get 'problems/user'
+
+  get 'problems/title'
+
+  get 'problems/body'
+
+  get 'users/name'
+
+  get 'users/email'
+
+  get 'users/password'
+
+  get 'users/password_confirmation'
+
+  resources :logins
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
