@@ -6,6 +6,7 @@ class CreateProblems < ActiveRecord::Migration
       t.string :title
       t.text :body
       t.datetime :published_date
+      t.boolean :solved, default: false, null: false
 
       t.timestamps
     end

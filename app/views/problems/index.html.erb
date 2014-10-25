@@ -7,6 +7,7 @@
 <div class="myproblemlinks"><%= link_to 'Show', problem %> |
   <%= link_to 'Edit', edit_problem_path(problem) %> |
   <%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= button_to 'This Problem Has Been Solved', { :controller => "problems", :method => "solved"} %>
 </div>
 <% end %>
 
