@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   end
 
 
-
+get 'logout' => 'logins#destroy'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
