@@ -1,0 +1,25 @@
+<!-- <p id="notice"><%= notice %></p> -->
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<h3>Problems by <%= @user.name %></h3>
+<% @problems.each do |problem| %>
+<div class="showusertitle">Title: <%= link_to problem.title, problem_path(problem) %></div>
+<div class="showusercontent"><%= problem.body %></div>
+<% end %>
+
+
+<h3>Comments by <%= @user.name %></h3>
+<% @notes.each do |note| %>
+  <h5><%= link_to note.problem.title, note.problem %></h5>
+  <h6>Post Author: <%= note.problem.user.name %></h6>
+  <p class="showusercomment">Comment: <%= note.body %></p>
+<% end %>

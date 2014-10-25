@@ -11,3 +11,15 @@
 <% end %>
 
 <br>
+
+
+<h1>Your Comments</h1>
+<% @notes.order(created_at: :desc).each do |note| %>
+  <% if note.responder == current_user.name %>
+  <div class="mycommentpost">To Problem: <%= link_to note.problem.title, note.problem %></div>
+  <div class="mycommentdate">On: <%= note.created_at %></div>
+    <div class="mycomment"><%= truncate(note.body, length: 400) %></div>
+      <div class="mycommentlinks"><%= link_to 'Destroy', note, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+      <% end %>
+    <% end %>
+<br>

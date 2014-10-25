@@ -10,6 +10,7 @@ class ProblemsController < ApplicationController
 
   def index
     @problems = Problem.all
+    @notes = Note.all
     @problems1 = current_user.problems
   end
 
