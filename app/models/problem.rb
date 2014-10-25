@@ -7,4 +7,20 @@ class Problem < ActiveRecord::Base
   validates :user, presence: true
   validates :body, presence: true
   validates :title, presence: true
+
+  scope :solved, -> { where("EXISTS (SELECT null FROM notes where notes.problem_id = problems.id)") }
+  scope :unsolved, -> { where("NOT EXISTS (SELECT null FROM notes where notes.problem_id = problems.id)") }
+
+
+  def solved?
+    notes.count > 0
+  end
+
+  def unsolved?
+    !solved?
+  end
+
+  def has_been_solved?
+    problems.where(solved: true).count > 0
+  end
 end
