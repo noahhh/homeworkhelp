@@ -1,11 +1,15 @@
 class UsersController < ApplicationController
 
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+
   def index
     @users = User.all
   end
 
   def show
     @user = User.find(params[:id])
+    @problems = @user.problems
+    @notes = Note.where(responder: user.name)
   end
 
   def create
@@ -25,7 +29,7 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find_by(params[:id])
+    @user = User.find(params[:id])
   end
 
   def user_params
