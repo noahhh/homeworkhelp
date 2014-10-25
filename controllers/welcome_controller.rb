@@ -1,7 +1,7 @@
 class WelcomeController < ApplicationController
   def index
     @users = User.all
-    @problems = Problem.all.page(params[:page]).per(10)
+    @problems = Problem.all
     @notes = Note.all
   end
 end
