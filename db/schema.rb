@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20141025173438) do
     t.string   "title"
     t.string   "body"
     t.datetime "published_date"
+    t.boolean  "solved",         default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "resolved", default: false
