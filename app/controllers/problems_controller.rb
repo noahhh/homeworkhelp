@@ -65,16 +65,14 @@
       end
     end
 
-<<<<<<< HEAD
+
   def solved
     @problem = Problem.find(params[:id])
     @problem.update_attribute(:solved => true)
   end
 
   private
-=======
-    private
->>>>>>> upstream/master
+
     # Use callbacks to share common setup or constraints between actions.
     def set_problem
       @problem = Problem.find(params[:id])
