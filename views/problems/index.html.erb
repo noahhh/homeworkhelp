@@ -1,0 +1,25 @@
+<h1>Your Problems</h1>
+<p></p>
+<% @problems1.order(published_date: :desc).each do |problem| %>
+<div class="mytitle">Title: <%= link_to problem.title, problem %></div>
+<div class="mydate">Date: <%= problem.published_date %></div>
+<div class="mycontent"><%= truncate(problem.body, length: 400) %></div>
+<div class="myproblemlinks"><%= link_to 'Show', problem %> |
+  <%= link_to 'Edit', edit_problem_path(problem) %> |
+  <%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
+<% end %>
+
+<br>
+
+
+<h1>Your Comments</h1>
+<% @notes.order(created_at: :desc).each do |note| %>
+  <% if note.responder == current_user.name %>
+  <div class="mycommentpost">To Problem: <%= link_to note.problem.title, note.problem %></div>
+  <div class="mycommentdate">On: <%= note.created_at %></div>
+    <div class="mycomment"><%= truncate(note.body, length: 400) %></div>
+      <div class="mycommentlinks"><%= link_to 'Destroy', note, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+      <% end %>
+    <% end %>
+<br>

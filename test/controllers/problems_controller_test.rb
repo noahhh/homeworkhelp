@@ -4,7 +4,7 @@ class ProblemsControllerTest < ActionController::TestCase
 
   test "should get new" do
     get :new
-    assert_response :ok
+    assert_response :found
   end
 
   test "should submit problem with valid data" do
@@ -23,12 +23,12 @@ class ProblemsControllerTest < ActionController::TestCase
   test "should redirect after create" do
     get :new
     post :new, { title: 'Wassup', body: 'nothing', user:{user: :one} }
-    assert_response :ok
+    assert_response :found
   end
 
   test "should redirect if not logged in" do
     @user = nil
     get :new
-    assert_response :ok
+    assert_redirected_to root_path
   end
 end

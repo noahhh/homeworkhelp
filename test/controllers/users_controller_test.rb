@@ -2,7 +2,6 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
 
-
   def valid_user_attributes
     { name: Faker::Name.name,
       email: Faker::Internet.email,

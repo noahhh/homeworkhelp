@@ -1,0 +1,25 @@
+<p>
+  <strong>Title:</strong>
+  <%= @problem.title %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @problem.user %>
+</p>
+
+<p>
+  <strong>Published Date:</strong>
+  <%= @problem.published_date %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @problem.body %>
+</p>
+
+<h2>Responses</h2>
+<%= render @problem.notes %>
+
+<h2>Add A Response:</h2>
+<%= render "notes/form" %>

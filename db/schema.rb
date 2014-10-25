@@ -17,22 +17,28 @@ ActiveRecord::Schema.define(version: 20141024183546) do
   enable_extension "plpgsql"
 
   create_table "notes", force: true do |t|
+    t.integer  "problem_id"
     t.integer  "user_id"
     t.string   "body"
+    t.string   "responder"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "notes", ["problem_id"], name: "index_notes_on_problem_id", using: :btree
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
   create_table "problems", force: true do |t|
     t.integer  "user_id"
+    t.integer  "note_id"
     t.string   "title"
     t.string   "body"
+    t.datetime "published_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "problems", ["note_id"], name: "index_problems_on_note_id", using: :btree
   add_index "problems", ["user_id"], name: "index_problems_on_user_id", using: :btree
 
   create_table "users", force: true do |t|

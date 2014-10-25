@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class LoginsControllerTest < ActionController::TestCase
-   def setup
+  def setup
     @user = User.new
   end
 
@@ -28,5 +28,4 @@ class LoginsControllerTest < ActionController::TestCase
     session.destroy
     assert_response :ok
   end
-
 end
