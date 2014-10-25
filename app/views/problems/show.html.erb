@@ -19,7 +19,7 @@
 </p>
 
 <h2>Responses</h2>
-<%= render @problem.notes %>
+<%= render @problem.notes.order(created_at: :asc) %>
 
 <h2>Add A Response:</h2>
 <%= render "notes/form" %>

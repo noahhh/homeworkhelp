@@ -16,15 +16,15 @@
 </div>
 
   <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.label :problem %><br>
+    <%= f.text_field :title, size: 100, placeholder: "What is your exact problem?" %>
   </div>
   <div class="field">
     <%= f.hidden_field :published_date, :value => DateTime.now %>
   </div>
   <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_area :body %>
+    <%= f.label :Attempted_Solutions %><br>
+    <%= f.text_area :body, placeholder: "Describe your attempted solutions..." %>
   </div>
   <div class="actions">
     <%= f.submit %>
