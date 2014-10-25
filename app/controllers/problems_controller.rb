@@ -1,8 +1,13 @@
 class ProblemsController < ApplicationController
+
+
+
+  before_action :authenticate
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
 
   # GET /problems
   # GET /problems.json
+
   def index
     @problems = Problem.all
     @notes = Note.all
