@@ -65,7 +65,14 @@
       end
     end
 
-    private
+
+  def solved
+    @problem = Problem.find(params[:id])
+    @problem.update_attribute(:solved => true)
+  end
+
+  private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_problem
       @problem = Problem.find(params[:id])
@@ -81,6 +88,6 @@
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def problem_params
-      params.require(:problem).permit(:title, :published_date, :content, :user, :user_id, :body, :comment, :comment_id, :commenter)
+      params.require(:problem).permit(:title, :published_date, :content, :user, :user_id, :body, :note, :note_id, :responder, :solved)
     end
   end

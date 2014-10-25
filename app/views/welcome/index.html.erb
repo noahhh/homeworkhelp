@@ -1,6 +1,7 @@
 <h1>Homepage (All Problems) </h1>
 <%= paginate @problems %>
 
+
 <table>
   <thead>
     <tr>
@@ -11,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @problems.order(published_date: :asc).each do |problem| %>
+    <% @unsolved_problems.order(published_date: :asc).each do |problem| %>
     <tr>
       <td class="ftitle"><%= link_to problem.title, problem_path(problem)%></td>
       <td class="fpub"><%= problem.published_date %></td>
@@ -21,3 +22,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= paginate @problems %>
