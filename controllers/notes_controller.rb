@@ -6,12 +6,10 @@ class NotesController < ApplicationController
     @notes = Note.all
   end
 
+
   def create
     @problem = Problem.find(params[:problem_id])
     @note = @problem.notes.create(note_params)
-    if @note.save
-      UserMailer.note_alert(@note.problem.user, @note).deliver
-    end
     @note.responder = current_user
     redirect_to problem_path(@problem)
   end

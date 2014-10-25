@@ -1,0 +1,24 @@
+<h1>Homepage (All Problems) </h1>
+<p> Woooooo </p>
+
+
+<table>
+  <thead>
+    <tr>
+      <th class="problemtitle">Title</th>
+      <th class="published">Date Published</th>
+      <th class="author">Author</th>
+      <th class="body">Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @problems.order(published_date: :asc).each do |problem| %>
+    <tr>
+      <td class="ftitle"><%= link_to problem.title, problem_path(problem)%></td>
+      <td class="fpub"><%= problem.published_date %></td>
+      <td class="fauthor"><%= link_to problem.user, problem.user%></td>
+      <td class="fbody"><%= truncate(problem.body, length: 200) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
