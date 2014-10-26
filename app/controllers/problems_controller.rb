@@ -25,7 +25,7 @@ class ProblemsController < ApplicationController
   end
 
   def resolved
-    @problem = Problem.find(params[:problem_id])
+    @problem = Problem.find(params[:id])
     if current_user && current_user.id == @problem.user.id
       @problem.update_attribute(:resolved, true)
       @problem.delete
@@ -55,7 +55,7 @@ class ProblemsController < ApplicationController
   end
 
   def problem_params
-    params.require(:problem).permit(:title, :published_date, :content, :user, :user_id, :body, :note, :note_id, :responder, :resolved)
+    params.require(:problem).permit(:title, :published_date, :content, :user_id, :body, :note_id, :resolved)
   end
 
 

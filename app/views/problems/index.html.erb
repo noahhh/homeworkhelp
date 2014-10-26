@@ -1,5 +1,4 @@
 <h1>Your Problems</h1>
-<p></p>
 <% @problems.order(published_date: :desc).each do |problem| %>
 <div class="mytitle">Title: <%= link_to problem.title, problem %></div>
 <div class="mydate">Date: <%= problem.published_date %></div>
@@ -7,8 +6,7 @@
 <div class="myproblemlinks"><%= link_to 'Show', problem %> |
   <%= link_to 'Edit', edit_problem_path(problem) %> |
   <%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %>
-  <%= button_to "Mark as Resolved", controller: 'problems', method: :resolved, class: :button %>
+  <%= button_to "Mark as Resolved", controller: 'problems', method: :resolved %>
 </div>
 <% end %>
-
 <br>
