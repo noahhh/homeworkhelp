@@ -25,10 +25,10 @@ Rails.application.routes.draw do
     resources :problems
   end
 
-  resources :problems do
-    post '/resolve' => 'problems#resolved', as: 'resolved'
-    resources :notes, shallow: true
-  end
+  resources :problems #do
+  #   post '/resolve' => 'problems#resolved', as: 'resolved'
+  #   resources :notes, shallow: true
+  # end
 
 
   get 'logout' => 'logins#destroy'

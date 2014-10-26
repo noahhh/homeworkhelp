@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20141026010830) do
     t.datetime "published_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "resolved", default: false
+    t.boolean  "resolved"
   end
 
   add_index "problems", ["note_id"], name: "index_problems_on_note_id", using: :btree
