@@ -2,6 +2,7 @@
 
     before_action :authenticate
     before_action :set_problem, only: [:show, :edit, :update, :destroy]
+    before_action :current_user
 
     def index
       @problems = Problem.all
@@ -22,8 +23,8 @@
 
 
     def create
-      @problem = current_user.problems.build(problem_params)
-      # @problem = Problem.new(problem_params)
+      # @problem = current_user.problems.build(problem_params)
+      @problem = Problem.new(problem_params)
       @problem.user = current_user
       if @problem.save
         UserMailer.problem_submit(@problem.user, @problem).deliver
@@ -33,20 +34,14 @@
 
     def update
       @problem = Problem.find_by(params[:id])
-      @problem.update_attribute(:solved => true)
+      @problem.update_attribute(:resolved => true)
     end
 
     def resolved
-      @problem = Problem.find_by(params[:id])
-      if current_user && current_user.id == @problem.user.id
-        @problem.update_attribute(:resolved, true)
-        @problem.save
-        redirect_to @problem, :flash => { :success => "Message" }
-
-      else
-        redirect_to @issue, :flash => { :success => "failure" }
-        # ADD ELSE FLASH
-      end
+        @problem = Problem.where(id: @problems)
+        @problem.update_all(:resolved => true)
+        flash[:notice] = "Message is available in same request-response cycle"
+        redirect_to root_path
     end
 
     def destroy
