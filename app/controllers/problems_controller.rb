@@ -57,23 +57,4 @@ class ProblemsController < ApplicationController
   def problem_params
     params.require(:problem).permit(:title, :published_date, :content, :user_id, :body, :note_id, :resolved)
   end
-
-
-  private
-
-  def set_problem
-    @problem = Problem.find(params[:id])
-    # @problem = current_user.problems.find(params[:id])
-  end
-
-  def ensure_user_owns_problem
-    if @problem.user != current_user
-      render nothing: true, status: :not_found
-      # redirect_to root_path, flash: {alert: "You tried to access a problem that does not belong to you."}
-    end
-  end
-
-  def problem_params
-    params.require(:problem).permit(:title, :published_date, :content, :user, :user_id, :body, :note, :note_id, :responder, :resolved)
-  end
 end
