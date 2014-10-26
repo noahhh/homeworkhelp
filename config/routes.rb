@@ -25,10 +25,11 @@ Rails.application.routes.draw do
     resources :problems
   end
 
-  resources :problems do
-    post '/resolved' => 'problems#resolved'
+  resources :problems, :only => [ :new, :create, :index, :show ] do
     resources :notes, shallow: true
   end
+
+  patch 'problems/:id' => 'problems#resolved', as: 'resolved'
 
 
   get 'logout' => 'logins#destroy'

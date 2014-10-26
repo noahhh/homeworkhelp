@@ -1,25 +1,36 @@
-<p>
-  <strong>Title:</strong>
-  <%= @problem.title %>
-</p>
+<h3>Description</h3>
+<p><%= @problem.title %></p>
 
-<p>
-  <strong>Author:</strong>
-  <%= @problem.user %>
-</p>
+<h3>What <%= @problem.user.name %> has tried already</h3>
+<%= @problem.body %>
+<br>
+<br>
 
-<p>
-  <strong>Published Date:</strong>
-  <%= @problem.published_date %>
-</p>
+<% if @problem.user == current_user %>
+  <h3><%= button_to "Mark as Resolved", resolved_path(@problem.id), method: :patch  %></h3>
+  <% end %>
 
-<p>
-  <strong>Body:</strong>
-  <%= @problem.body %>
-</p>
+<h3>Notes</h3>
+<% @sorted_notes = @problem.notes.sort_by(&:created_at) %>
+<% @sorted_notes.each do |n| %>
+  <%= n.text %><br>
+  <%= n.user.name %> at <%= n.created_at.to_formatted_s(format = :short) %>
+  <br>
+  <br>
+<% end %>
 
-<h2>Responses</h2>
-<%= render @problem.notes.order(created_at: :asc) %>
+<%= form_for([@problem, @problem.notes.build]) do |f| %>
 
-<h2>Add A Response:</h2>
-<%= render "notes/form" %>
+  <p>
+    <%= f.hidden_field :responder, value: @current_user %>
+  </p>
+  <p>
+    <%= f.hidden_field :created_at, value: DateTime.now %>
+  </p>
+  <p>
+    <%= f.text_area :body, placeholder: "Comments..." %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

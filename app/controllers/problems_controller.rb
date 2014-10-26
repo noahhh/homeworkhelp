@@ -1,10 +1,11 @@
 class ProblemsController < ApplicationController
-
-  before_action :authenticate
-  before_action :set_problem, only: [:show, :edit, :update, :destroy]
+  # before_action :authenticate
+  before_action :set_problem, only: [:show, :resolved]
+  # before_action :current_user
 
 
   def index
+    @user = current_user
     @problems = Problem.all
     @notes = Note.all
   end
@@ -14,10 +15,10 @@ class ProblemsController < ApplicationController
   end
 
   def create
-    @problem = current_user.problems.build(problem_params)
+    @problem = Problem.new(problem_params)
     if @problem.save
       @user = current_user
-      UserMailer.problem_submit(@problem.user,@problem).deliver
+      UserMailer.problem_submit(@problem.user, @problem).deliver
       redirect_to root_path, notice: "You successfully asked a question!"
     else
       render :new
@@ -25,27 +26,34 @@ class ProblemsController < ApplicationController
   end
 
   def resolved
-    @problem = Problem.find(params[:id])
-    if current_user && current_user.id == @problem.user.id
-      @problem.update_attribute(:resolved, true)
-      @problem.delete
-      redirect_to @problem, notice: "You've successfully resolved your problem."
-    else
-      redirect_to @problem, alert: "sorry, you can't do that."
-    end
+    @problem.toggle(:resolved)
+    @problem.save
+    redirect_to root_path, notice: "Your problem has been resolved."
   end
+
+  # def resolved
+  #   @problem = Problem.find(params[:problem_id])
+  #   if current_user && current_user.id == @problem.user.id
+  #     @problem.update_attribute(:resolved, true)
+  #     @problem.save
+  #     redirect_to @problem, notice: "You've successfully resolved your problem."
+  #   else
+  #     redirect_to @problem, alert: "sorry, you can't do that."
+  #   end
+  # end
 
   def show
     @problem = Problem.find(params[:id])
   end
 
-
-  private
-
   def set_problem
     @problem = Problem.find(params[:id])
     # @problem = current_user.problems.find(params[:id])
   end
+
+  private
+
+
 
   def ensure_user_owns_problem
     if @problem.user != current_user
@@ -55,6 +63,6 @@ class ProblemsController < ApplicationController
   end
 
   def problem_params
-    params.require(:problem).permit(:title, :published_date, :content, :user_id, :body, :note_id, :resolved)
+    params.require(:problem).permit(:title, :published_date, :content, :user_id, :body, :note_id, :resolved, :id)
   end
 end

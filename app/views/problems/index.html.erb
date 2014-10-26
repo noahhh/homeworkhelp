@@ -4,9 +4,7 @@
 <div class="mydate">Date: <%= problem.published_date %></div>
 <div class="mycontent"><%= truncate(problem.body, length: 400) %></div>
 <div class="myproblemlinks"><%= link_to 'Show', problem %> |
-  <%= link_to 'Edit', edit_problem_path(problem) %> |
   <%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %>
-  <%= button_to "Mark as Resolved", problem_resolved_path(@problem.id) %>
 </div>
 <% end %>
 <br>
