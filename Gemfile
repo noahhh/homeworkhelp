@@ -39,8 +39,8 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'debugger', group: [:development, :test]
 gem 'kaminari'
 gem "faker"
-gem 'foundation-rails', '~> 5.4.5'
 gem 'simple_form'
+gem 'foundation-rails', '~> 5.4.5'
 
 group :development, :test do
   gem "better_errors"

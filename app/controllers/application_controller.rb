@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
 
   private
 
+
+
   def user
     @user ||= User.find_by(id: session[:user_id])
   end

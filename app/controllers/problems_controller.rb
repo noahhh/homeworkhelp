@@ -1,12 +1,7 @@
   class ProblemsController < ApplicationController
 
-
-
     before_action :authenticate
     before_action :set_problem, only: [:show, :edit, :update, :destroy]
-
-    # GET /problems
-    # GET /problems.json
 
     def index
       @problems = Problem.all
@@ -14,26 +9,21 @@
       @problems1 = current_user.problems
     end
 
-    # GET /problems/1
-    # GET /problems/1.json
     def show
       @problems = Problem.all
     end
 
-    # GET /problems/new
     def new
       @problem = Problem.new
     end
 
-    # GET /problems/1/edit
     def edit
     end
 
-    # POST /problems
-    # POST /problems.json
+
     def create
-      # @problem = current_user.problems.build(problem_params)
-      @problem = Problem.new(problem_params)
+      @problem = current_user.problems.build(problem_params)
+      # @problem = Problem.new(problem_params)
       @problem.user = current_user
       if @problem.save
         UserMailer.problem_submit(@problem.user, @problem).deliver
@@ -41,22 +31,24 @@
       end
     end
 
-    # PATCH/PUT /problems/1
-    # PATCH/PUT /problems/1.json
     def update
-      respond_to do |format|
-        if @problem.update(problem_params)
-          format.html { redirect_to @problem, notice: 'Problem was successfully updated.' }
-          format.json { render :show, status: :ok, location: @problem }
-        else
-          format.html { render :edit }
-          format.json { render json: @problem.errors, status: :unprocessable_entity }
-        end
+      @problem = Problem.find_by(params[:id])
+      @problem.update_attribute(:solved => true)
+    end
+
+    def resolved
+      @problem = Problem.find_by(params[:id])
+      if current_user && current_user.id == @problem.user.id
+        @problem.update_attribute(:resolved, true)
+        @problem.save
+        redirect_to @problem, :flash => { :success => "Message" }
+
+      else
+        redirect_to @issue, :flash => { :success => "failure" }
+        # ADD ELSE FLASH
       end
     end
 
-    # DELETE /problems/1
-    # DELETE /problems/1.json
     def destroy
       @problem.destroy
       respond_to do |format|
@@ -65,15 +57,8 @@
       end
     end
 
+    private
 
-  def solved
-    @problem = Problem.find(params[:id])
-    @problem.update_attribute(:solved => true)
-  end
-
-  private
-
-    # Use callbacks to share common setup or constraints between actions.
     def set_problem
       @problem = Problem.find(params[:id])
       # @problem = current_user.problems.find(params[:id])
@@ -86,8 +71,7 @@
       end
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def problem_params
-      params.require(:problem).permit(:title, :published_date, :content, :user, :user_id, :body, :note, :note_id, :responder, :solved)
+      params.require(:problem).permit(:title, :published_date, :content, :user, :user_id, :body, :note, :note_id, :responder, :resolved)
     end
   end

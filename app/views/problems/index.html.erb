@@ -7,12 +7,11 @@
 <div class="myproblemlinks"><%= link_to 'Show', problem %> |
   <%= link_to 'Edit', edit_problem_path(problem) %> |
   <%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %>
-  <%= button_to 'This Problem Has Been Solved', { :controller => "problems", :method => "solved"} %>
+  <%= link_to "Mark as Resolved", problem_resolved_path(@problems), method: :resolved, class: :button %>
 </div>
 <% end %>
 
 <br>
-
 
 <h1>Your Comments</h1>
 <% @notes.order(created_at: :desc).each do |note| %>

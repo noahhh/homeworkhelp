@@ -26,11 +26,12 @@ Rails.application.routes.draw do
   end
 
   resources :problems do
+    post '/resolve' => 'problems#resolved', as: 'resolved'
     resources :notes, shallow: true
   end
 
 
-
+  get 'logout' => 'logins#destroy'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
