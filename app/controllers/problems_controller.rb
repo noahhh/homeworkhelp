@@ -17,7 +17,7 @@ class ProblemsController < ApplicationController
     @problem = current_user.problems.build(problem_params)
     if @problem.save
       @user = current_user
-      UserMailer.new_problem(@problem.user,@problem).deliver
+      UserMailer.problem_submit(@problem.user,@problem).deliver
       redirect_to root_path, notice: "You successfully asked a question!"
     else
       render :new

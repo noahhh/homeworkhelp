@@ -6,7 +6,7 @@
 <div class="myproblemlinks"><%= link_to 'Show', problem %> |
   <%= link_to 'Edit', edit_problem_path(problem) %> |
   <%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %>
-  <%= button_to "Mark as Resolved", controller: 'problems', method: :resolved %>
+  <%= button_to "Mark as Resolved", problem_resolved_path(@problem.id) %>
 </div>
 <% end %>
 <br>
