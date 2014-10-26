@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @unsolved_problems.order(published_date: :asc).each do |problem| %>
+    <% @problems.order(published_date: :desc).each do |problem| %>
     <tr>
       <td class="ftitle"><%= link_to problem.title, problem_path(problem)%></td>
       <td class="fpub"><%= problem.published_date %></td>
