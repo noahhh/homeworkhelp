@@ -1,7 +1,7 @@
 <h1>All of y'all's Problems(Unsolved)</h1>
 <%= paginate @problems %>
 
-
+<div class="main">
 <table>
   <thead>
     <tr>
@@ -14,13 +14,14 @@
   <tbody>
     <% @problems.order(published_date: :asc).each do |problem| %>
     <tr>
-      <td class="ftitle"><%= link_to problem.title, problem_path(problem)%></td>
+      <td class="ftitle"><%= link_to truncate(problem.title, length: 25), problem_path(problem)%></td>
       <td class="fpub"><%= problem.published_date %></td>
       <td class="fauthor"><%= link_to problem.user, problem.user%></td>
-      <td class="fbody"><%= truncate(problem.body, length: 200) %></td>
+      <td class="fbody"><%= truncate(problem.body, length: 70, omission: '... (continued)') %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
+</div>
 
 <%= paginate @problems %>

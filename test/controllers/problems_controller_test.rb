@@ -13,46 +13,17 @@ class ProblemsControllerTest < ActionController::TestCase
     should render_template('new')
   end
 
-  # test "should submit problem with valid data" do
-  #   assert_difference('Problem.count', 1) do
-  #   post :create, { title: 'Wassup', body: 'nothing', user:{user: :one} }
-  #   @problem.save
-  #   # assert_not_nil Problem.all
-  #   end
-  # end
-  # should "should reject problem with invalid data" do
-  #   assert_difference('Problem.count', 0) do
-  #   # get :new
-  #   post :create, {title: ""}
-  #   assert render_template("new")
-  #   end
-  # end
+  test "should submit problem with valid data" do
+    get :new
+    post :new, { title: 'Wassup', body: 'nothing', user:{user: :one} }
+    assert_not_nil Problem.all
+  end
 
-   context "request POST :create" do
-    context "with invalid problem info" do
-    setup {post :create, { problem: { user_id: @user.id, title: @problem.title, body: "" } }, {current_user_id: @user.id}  }
-      should "not save a problem" do
-        assert assigns[:problem].invalid?
-      end
-      should render_template('new')
-    end
-
-    context "with valid problem info" do
-      setup do
-        ActionMailer::Base.deliveries.clear
-        post :create, { problem: { user_id: @user.id, title: @problem.title, body: @problem.body } }, {current_user_id: @user.id}
-      end
-      should "save the problem" do
-        assert assigns[:problem]
-        assert assigns[:problem].persisted?
-      end
-      should "redirect to problem's show view" do
-        assert_redirected_to root_path
-      end
-      should "send problem_posted email" do
-        email = ActionMailer::Base.deliveries.last
-        assert_equal "Your problem has been created", email.subject
-      end
+  should "should reject problem with invalid data" do
+    assert_difference('Problem.count', 0) do
+    # get :new
+    post :create, {title: ""}
+    assert render_template("new")
     end
   end
 
