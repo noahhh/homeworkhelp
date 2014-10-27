@@ -10,8 +10,7 @@ class NotesController < ApplicationController
   def create
     @problem = Problem.find(params[:problem_id])
     @note = @problem.notes.create(note_params)
-    if @note.save
-      @user = current_user
+    if @note.save && @user != current_user
       UserMailer.note_alert(@note.problem.user, @note).deliver
     end
     @note.responder = current_user

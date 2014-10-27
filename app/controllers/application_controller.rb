@@ -19,6 +19,12 @@ class ApplicationController < ActionController::Base
     current_user
   end
 
+  def auth
+    if current_user == nil
+      redirect_to root_path, notice: "You must be logged in to see that"
+    end
+  end
+
   def authenticate
     current_user_id = session[:current_user_id]
     unless current_user_id
