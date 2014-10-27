@@ -32,8 +32,9 @@ ActiveRecord::Schema.define(version: 20141026171719) do
     t.integer  "user_id"
     t.integer  "note_id"
     t.string   "title"
-    t.string   "body"
+    t.text     "body"
     t.datetime "published_date"
+    t.boolean  "solved",         default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "resolved",       default: false, null: false

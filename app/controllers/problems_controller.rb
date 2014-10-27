@@ -1,7 +1,7 @@
 class ProblemsController < ApplicationController
-  # before_action :authenticate
+  before_action :auth
   before_action :set_problem, only: [:show, :resolved]
-  # before_action :current_user
+  before_action :current_user
 
 
   def index
@@ -19,7 +19,8 @@ class ProblemsController < ApplicationController
     if @problem.save
       @user = current_user
       UserMailer.problem_submit(@problem.user, @problem).deliver
-      redirect_to root_path, notice: "You successfully asked a question!"
+      redirect_to root_path
+      flash[:notice] = "You successfully submitted a problem!"
     else
       render :new
     end
@@ -28,7 +29,15 @@ class ProblemsController < ApplicationController
   def resolved
     @problem.toggle(:resolved)
     @problem.save
+    remove_resolved
     redirect_to root_path, notice: "Your problem has been resolved."
+  end
+
+
+  def remove_resolved
+    if @problem.resolved == true
+      @problem.destroy
+    end
   end
 
   # def resolved
@@ -52,7 +61,12 @@ class ProblemsController < ApplicationController
   end
 
   private
-
+  def authenticate
+    current_user_id = session[:current_user_id]
+    unless current_user_id
+      redirect_to root_path, notice: "You must be logged in to see that."
+    end
+  end
 
 
   def ensure_user_owns_problem

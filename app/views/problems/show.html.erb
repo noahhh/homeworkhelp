@@ -1,8 +1,9 @@
-<h3>Description</h3>
-<p><%= @problem.title %></p>
+<div class="problemshow">
+<h3 class="description">Description</h3>
+<p> - <%= @problem.title %></p>
 
-<h3>What <%= @problem.user.name %> has tried already</h3>
-<%= @problem.body %>
+<h3 class="tried">What <%= @problem.user.name %> has tried</h3>
+ - <%= @problem.body %>
 <br>
 <br>
 
@@ -10,11 +11,13 @@
   <h3><%= button_to "Mark as Resolved", resolved_path(@problem.id), method: :patch  %></h3>
   <% end %>
 
+
+<div class="notes">
 <h3>Notes</h3>
 <% @sorted_notes = @problem.notes.sort_by(&:created_at) %>
 <% @sorted_notes.each do |n| %>
-  <%= n.body %><br>
-  <%= n.responder %> at <%= n.created_at.to_formatted_s(format = :short) %>
+  - <%= n.body %><br>
+  Left by: <%= n.responder %> at <%= n.created_at.to_formatted_s(format = :short) %>
   <br>
   <br>
 <% end %>
@@ -27,10 +30,12 @@
   <p>
     <%= f.hidden_field :created_at, value: DateTime.now %>
   </p>
-  <p>
+  <p class="notebody">
     <%= f.text_area :body, placeholder: "Comments..." %>
   </p>
   <p>
     <%= f.submit %>
   </p>
 <% end %>
+</div>
+</div>

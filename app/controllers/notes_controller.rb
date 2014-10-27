@@ -10,9 +10,10 @@ class NotesController < ApplicationController
   def create
     @problem = Problem.find(params[:problem_id])
     @note = @problem.notes.create(note_params)
-    if @note.save
-      @user = current_user
+    if @note.save && @user != current_user
       UserMailer.note_alert(@note.problem.user, @note).deliver
+    else
+      redirect_to root_path, alert: "Sorry, you must enter something.  Anything at all."
     end
     @note.responder = current_user
     redirect_to problem_path(@problem)
