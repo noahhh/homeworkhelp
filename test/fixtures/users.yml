@@ -6,6 +6,6 @@ one:
   password_digest: MyString
 
 two:
-  name:
-  email:
+  name: Eeyore
+  email: depressed@allthetime.com
   password_digest: MyString

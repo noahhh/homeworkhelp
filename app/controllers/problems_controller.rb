@@ -61,12 +61,12 @@ class ProblemsController < ApplicationController
   end
 
   private
-def authenticate
-  current_user_id = session[:current_user_id]
-  unless current_user_id
-    redirect_to root_path, notice: "You must be logged in to see that."
+  def authenticate
+    current_user_id = session[:current_user_id]
+    unless current_user_id
+      redirect_to root_path, notice: "You must be logged in to see that."
+    end
   end
-end
 
 
   def ensure_user_owns_problem

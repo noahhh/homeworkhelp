@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   resources :users do
     resources :problems
   end
+  
+  resources :notes
 
   resources :problems, :only => [ :new, :create, :index, :show ] do
     resources :notes, shallow: true
