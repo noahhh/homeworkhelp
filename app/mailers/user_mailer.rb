@@ -12,9 +12,9 @@ class UserMailer < ActionMailer::Base
     mail to: @user.email, subject: "Your problem has been created"
   end
 
-  def note_alert(user, note)
+  def note_alert(user, problem)
     @user = user
-    @note = note
+    @note = problem
     mail to: @user.email, subject: "A note has been added to your problem"
   end
 end
