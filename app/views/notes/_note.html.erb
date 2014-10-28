@@ -1,14 +1,8 @@
-<p>
-  <strong>User:</strong>
-  <%= note.responder %>
-</p>
-
-<p>
-  <strong>Date:</strong>
-  <%= note.created_at %>
-</p>
-
-<div class="noteborder">
-  <strong>Response:</strong>
-  <%= note.body %>
+<div class="row" id="<%= note.persisted? ? dom_id(note) : "note-new" %>">
+<div class="panel">
+  <div> <%= note.body %></div>
+  <div> Answered by <%= note.responder %></div>
+    <strong>Date:</strong>
+    <div><%= note.created_at %></div>
+</div>
 </div>

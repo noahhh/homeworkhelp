@@ -9,6 +9,7 @@
       <th class="published">Date Published</th>
       <th class="author">Author</th>
       <th class="body">Attempted Solution</th>
+      <th class="resolved">Resolved?</th>
     </tr>
   </thead>
   <tbody>
@@ -18,6 +19,9 @@
       <td class="fpub"><%= problem.published_date %></td>
       <td class="fauthor"><%= link_to problem.user, problem.user%></td>
       <td class="fbody"><%= truncate(problem.body, length: 70, omission: '... (continued)') %></td>
+      <% if @problem.user == current_user %>
+        <h3><%= button_to "Mark as Resolved", resolved_path(@problem.id), method: :patch  %></h3>
+        <% end %>
     </tr>
     <% end %>
   </tbody>
