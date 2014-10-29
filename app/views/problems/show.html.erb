@@ -11,26 +11,26 @@
   <h3><%= button_to "Mark as Resolved", resolved_path(@problem.id), method: :patch  %></h3>
   <% end %>
 
-
-  <div class="notes">
-    <h3>Notes</h3>
-    <div id="notes">
-      <% @problem.notes.each do |note| %>
-      <div id="<%= dom_id(note) %>">
-        <%= note.body %><br>
-        <%= note.responder %> at <%= note.created_at.to_formatted_s(format = :short) %>
-        <br>
-        <br>
-      </div>
-      <% end %>
-    </div>
+  <div id="notes">
+    <%= render @notes %>
   </div>
 
 
-  <%= form_for @note, remote: true do |f| %>
-  <%= f.text_area :body, rows: 5, cols: 40, placeholder: "Add a note" %></p>
-  <%= f.hidden_field :responder, value: current_user.id %>
-  <%= f.button :Submit %>
+  <%= form_for [@problem, @problem.notes.build], remote: true do |f| %>
+
+  <p>
+    <%= f.hidden_field :responder, value: @current_user %>
+  </p>
+  <p>
+    <%= f.hidden_field :created_at, value: DateTime.now %>
+  </p>
+  <p>
+    <%= f.text_area :body, placeholder: "Comments..." %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
   <% end %>
+
 
 </div>
