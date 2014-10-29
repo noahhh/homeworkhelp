@@ -41,7 +41,6 @@ gem 'kaminari'
 gem "faker"
 gem 'simple_form'
 gem 'foundation-rails', '~> 5.4.5'
-
 gem 'rails_12factor', group: :production
 
 group :development, :test do
