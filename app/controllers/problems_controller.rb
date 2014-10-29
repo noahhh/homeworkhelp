@@ -53,6 +53,8 @@ class ProblemsController < ApplicationController
 
   def show
     @problem = Problem.find(params[:id])
+    @notes = @problem.notes
+    @note = Note.new
   end
 
   def set_problem

@@ -28,7 +28,7 @@ gem 'spring',        group: :development
 gem 'pry-byebug'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
+gem 'jquery-ui-rails'
 # Use unicorn as the app server
 # gem 'unicorn'
 

@@ -1,10 +1,30 @@
-<h1>Your Problems</h1>
-<% @problems.order(published_date: :desc).each do |problem| %>
-<div class="mytitle">Title: <%= link_to problem.title, problem %></div>
-<div class="mydate">Date: <%= problem.published_date %></div>
-<div class="mycontent"><%= truncate(problem.body, length: 400) %></div>
-<div class="myproblemlinks"><%= link_to 'Show', problem %> |
-  <%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %>
+<h1>All of y'all's Problems(Unsolved)</h1>
+
+<div class="main">
+<table>
+  <thead>
+    <tr>
+      <th class="problemtitle">Problem</th>
+      <th class="published">Date Published</th>
+      <th class="author">Author</th>
+      <th class="body">Attempted Solution</th>
+      <th class="resolved">Resolved?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @problems.order(published_date: :asc).each do |problem| %>
+    <tr>
+      <td class="ftitle"><%= link_to truncate(problem.title, length: 25), problem_path(problem)%></td>
+      <td class="fpub"><%= problem.published_date %></td>
+      <td class="fauthor"><%= link_to problem.user, problem.user%></td>
+      <td class="fbody"><%= truncate(problem.body, length: 70, omission: '... (continued)') %></td>
+      <% if problem.user == current_user %>
+      <td class="fresolved"><%= link_to "Resolved", resolved_path(problem.id), method: :patch  %></td>
+      <% else %>
+       <td class="notprob">Not your problem</td>
+        <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 </div>
-<% end %>
-<br>
