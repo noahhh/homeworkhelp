@@ -23,15 +23,13 @@ class LoginsControllerTest < ActionController::TestCase
     end
 
     test "should let user login with valid information" do
-      get :new
-      post :new, session: { email: @user.email, password: @user.password }
+      post :create, session: { email: @user.email, password: @user.password }
       assert_response :ok # WHY IS THIS 200 AND NOT REDIRECTED TO
     end
 
-    test "should destroy session when logged out" do #Does not work
-      get :new
-      post :new, session: {email: @user.email, password: @user.password }
-      @user.destroy
-      assert session[@user], nil
+    test "should destroy session when logged out" do
+      post :create, session: {email: @user.email, password: @user.password }
+      delete :destroy
+      refute session[:current_user_id]
     end
 end

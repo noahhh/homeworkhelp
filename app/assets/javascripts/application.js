@@ -13,8 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require jquery-ui/effect-highlight
+//= require jquery-ui
 //= require turbolinks
 //= require_tree .
-
-$(document).on("page:load ready", ready);

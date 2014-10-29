@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   get 'users/password_confirmation'
 
-  resource :login, only: [:new, :create, :destroy]
+   resource :login, :only => [:new, :create, :destroy]
 
   resources :users do
     resources :problems
@@ -33,9 +33,7 @@ Rails.application.routes.draw do
 
   patch 'problems/:id' => 'problems#resolved', as: 'resolved'
 
-
-  get 'logout' => 'logins#destroy'
-
+   get 'logout' => 'logins#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

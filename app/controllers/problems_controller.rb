@@ -34,7 +34,8 @@ class ProblemsController < ApplicationController
         redirect_to root_path
       end
       format.js do
-        render 'problems/resolved', status: :created
+        @problem.destroy
+        render 'problems/resolved', status: :resolved
       end
     end
   end
