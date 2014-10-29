@@ -1,3 +1,4 @@
+
 <h1>All of y'all's Problems(Unsolved)</h1>
 
 <div class="main">
@@ -12,17 +13,22 @@
     </tr>
   </thead>
   <tbody>
-    <% @problems.order(published_date: :asc).each do |problem| %>
+
+    <% @sorted_problems = @problems.sort_by(&:created_at) %>
+    <% @sorted_problems.each do |problem| %>
     <tr>
+      <tr id="<%= dom_id(problem) %>">
       <td class="ftitle"><%= link_to truncate(problem.title, length: 25), problem_path(problem)%></td>
       <td class="fpub"><%= problem.published_date %></td>
       <td class="fauthor"><%= link_to problem.user, problem.user%></td>
       <td class="fbody"><%= truncate(problem.body, length: 70, omission: '... (continued)') %></td>
       <% if problem.user == current_user %>
-      <td class="fresolved"><%= link_to "Resolved", resolved_path(problem.id), method: :patch  %></td>
-      <% else %>
+      <div class="resolve">
+      <td class="fresolved"><%= link_to "Resolved", resolved_path(problem), method: :patch, remote: true  %></td>
+    </div><% else %>
        <td class="notprob">Not your problem</td>
         <% end %>
+      </tr>
     </tr>
     <% end %>
   </tbody>

@@ -5,9 +5,7 @@ class ProblemsController < ApplicationController
 
 
   def index
-    @user = current_user
     @problems = Problem.all
-    @notes = Note.all
   end
 
   def new
@@ -29,25 +27,35 @@ class ProblemsController < ApplicationController
   def resolved
     @problem.toggle(:resolved)
     @problem.save
-    remove_resolved
-    redirect_to root_path, notice: "Your problem has been resolved."
-  end
-
-
-  def remove_resolved
-    if @problem.resolved == true
-      @problem.destroy
+    respond_to do |format|
+      format.html do
+        @problem.destroy
+        redirect_to root_path
+      end
+      format.js do
+        @problem.destroy
+        render 'problems/resolved', status: :success
+      end
     end
   end
 
-  # def resolved
-  #   @problem = Problem.find(params[:problem_id])
-  #   if current_user && current_user.id == @problem.user.id
-  #     @problem.update_attribute(:resolved, true)
-  #     @problem.save
-  #     redirect_to @problem, notice: "You've successfully resolved your problem."
-  #   else
-  #     redirect_to @problem, alert: "sorry, you can't do that."
+
+  # def remove_resolved
+  #   respond_to do |format|
+  #       format.html do
+  #         if @problem.resolved == true
+  #           @problem.destroy
+  #         else
+  #           redirect_to root_path, alert: "Sorry, you must enter something.  Anything at all."
+  #         end
+  #       end
+  #       format.js do
+  #         if @problem.resolved == true
+  #           render "problems/create", status: :created
+  #         else
+  #           render "problems/create", status: :accepted
+  #         end
+  #       end
   #   end
   # end
 

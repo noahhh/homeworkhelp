@@ -21,9 +21,9 @@ class ProblemsControllerTest < ActionController::TestCase
 
   should "should reject problem with invalid data" do
     assert_difference('Problem.count', 0) do
-    # get :new
-    post :create, {title: ""}
-    assert render_template("new")
+      # get :new
+      post :create, {title: ""}
+      assert render_template("new")
     end
   end
 
@@ -51,4 +51,15 @@ class ProblemsControllerTest < ActionController::TestCase
     assert @problem.id, nil
   end
 
+  test "should send html format" do
+    patch :resolved, { id: @problem, format: "html" }, {current_user_id: @user.id}
+    assert assigns[:problem].resolved
+    assert_redirected_to root_path
+  end
+
+  test "should send js format" do
+    patch :resolved, { id: @problem, format: "js" }, {current_user_id: @user.id}
+    assert assigns[:problem].resolved
+    assert_response :created
+  end
 end

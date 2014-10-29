@@ -1,3 +1,4 @@
-<%= problem.user %>
-<%= problem.body %>
-<%= render problem.notes %>
+<div class="row" id="<%= @problem.persisted? ? dom_id(@problem) : "problem-resolved" %>">
+<div><%= problem.user %></div>
+<div><%= problem.body %></div>
+<div><%= render problem.notes %></div>
