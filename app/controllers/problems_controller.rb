@@ -5,7 +5,6 @@ class ProblemsController < ApplicationController
 
 
   def index
-    @user = current_user
     @problems = Problem.all
   end
 
@@ -35,7 +34,7 @@ class ProblemsController < ApplicationController
       end
       format.js do
         @problem.destroy
-        render 'problems/resolved', status: :resolved
+        render 'problems/resolved', status: :success
       end
     end
   end
