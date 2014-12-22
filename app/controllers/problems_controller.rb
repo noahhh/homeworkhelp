@@ -40,24 +40,24 @@ class ProblemsController < ApplicationController
   end
 
 
-  # def remove_resolved
-  #   respond_to do |format|
-  #       format.html do
-  #         if @problem.resolved == true
-  #           @problem.destroy
-  #         else
-  #           redirect_to root_path, alert: "Sorry, you must enter something.  Anything at all."
-  #         end
-  #       end
-  #       format.js do
-  #         if @problem.resolved == true
-  #           render "problems/create", status: :created
-  #         else
-  #           render "problems/create", status: :accepted
-  #         end
-  #       end
-  #   end
-  # end
+  def remove_resolved
+    respond_to do |format|
+        format.html do
+          if @problem.resolved == true
+            @problem.destroy
+          else
+            redirect_to root_path, alert: "Sorry, you must enter something.  Anything at all."
+          end
+        end
+        format.js do
+          if @problem.resolved == true
+            render "problems/create", status: :created
+          else
+            render "problems/create", status: :accepted
+          end
+        end
+    end
+  end
 
   def show
     @problem = Problem.find(params[:id])
@@ -81,8 +81,8 @@ class ProblemsController < ApplicationController
 
   def ensure_user_owns_problem
     if @problem.user != current_user
-      render nothing: true, status: :not_found
-      # redirect_to root_path, flash: {alert: "You tried to access a problem that does not belong to you."}
+      #render nothing: true, status: :not_found
+      redirect_to root_path, flash: {alert: "You tried to access a problem that does not belong to you."}
     end
   end
 
